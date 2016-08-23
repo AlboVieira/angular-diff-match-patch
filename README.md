@@ -39,7 +39,27 @@ And Directive:
 	}])
 ```
 
+And changed this in diff_match_patch_uncompressed.js :
 
+- Copied the method diff_linesToWords from diff_linesToChars
+
+Replaced this:
+
+```javascript
+
+//this
+lineEnd = text.indexOf('\n', lineStart)
+
+//for this
+lineEnd = (function(text, offset) {
+    var initial = text.substr(offset).search(/[\s\t\n\r]/);
+    if(initial >= 0) {
+        initial += offset;
+    }
+    return initial;
+})(text, lineStart);
+
+```
 
 
 angular-diff-match-patch
