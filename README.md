@@ -1,3 +1,47 @@
+
+Created a new function
+
+
+```javascript
+createWordDiffHtml: function createWordDiffHtml(left, right, options) {
+				var dmp;
+				var chars;
+				var diffs;
+				if (assertArgumentsIsStrings(left, right)) {
+					dmp = new DiffMatchPatch();
+					chars = dmp.diff_linesToWords_(left, right);
+					diffs = dmp.diff_main(chars.chars1, chars.chars2, false);
+					dmp.diff_charsToLines_(diffs, chars.lineArray);
+					return createHtmlFromDiffs(diffs, displayType.INSDEL, options);
+				}
+				return '';
+},
+```
+And Directive:
+```javascript
+.directive('wordDiff', ['$compile', 'dmp', function factory($compile, dmp) {
+		var ddo = {
+			scope: {
+				left: '=leftObj',
+				right: '=rightObj',
+				options: '=options'
+			},
+			link: function postLink(scope, iElement) {
+				var listener = function listener() {
+					iElement.html(dmp.createWordDiffHtml(scope.left, scope.right, scope.options));
+					$compile(iElement.contents())(scope);
+				};
+				scope.$watch('left', listener);
+				scope.$watch('right', listener);
+			}
+		};
+		return ddo;
+	}])
+```
+
+
+
+
 angular-diff-match-patch
 ========================
 [![Circle CI](https://circleci.com/gh/amweiss/angular-diff-match-patch.svg?style=svg)](https://circleci.com/gh/amweiss/angular-diff-match-patch) [![Coverage Status](https://coveralls.io/repos/github/amweiss/angular-diff-match-patch/badge.svg?branch=master)](https://coveralls.io/github/amweiss/angular-diff-match-patch?branch=master)

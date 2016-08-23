@@ -6,7 +6,7 @@
   "main": "index.js",
   "description": "An Angular module to use when dealing with google-diff-match-patch.",
   "repository": {
-    "url": "https://github.com/amweiss/angular-diff-match-patch.git"
+    "url": "https://github.com/AlboVieira/angular-diff-match-patch"
   },
   "dependencies": {
     "angular": "^1.*",
