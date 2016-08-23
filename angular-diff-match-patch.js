@@ -193,6 +193,20 @@ angular.module('diff-match-patch', [])
 				return '';
 			},
 
+			createWordDiffHtml: function createWordDiffHtml(left, right, options) {
+				var dmp;
+				var chars;
+				var diffs;
+				if (assertArgumentsIsStrings(left, right)) {
+					dmp = new DiffMatchPatch();
+					chars = dmp.diff_linesToWords_(left, right);
+					diffs = dmp.diff_main(chars.chars1, chars.chars2, false);
+					dmp.diff_charsToLines_(diffs, chars.lineArray);
+					return createHtmlFromDiffs(diffs, displayType.INSDEL, options);
+				}
+				return '';
+			},
+
 			createLineDiffHtml: function createLineDiffHtml(left, right, options) {
 				var dmp;
 				var chars;
@@ -263,6 +277,28 @@ angular.module('diff-match-patch', [])
 		};
 		return ddo;
 	}])
+
+
+	.directive('wordDiff', ['$compile', 'dmp', function factory($compile, dmp) {
+		var ddo = {
+			scope: {
+				left: '=leftObj',
+				right: '=rightObj',
+				options: '=options'
+			},
+			link: function postLink(scope, iElement) {
+				var listener = function listener() {
+					iElement.html(dmp.createWordDiffHtml(scope.left, scope.right, scope.options));
+					$compile(iElement.contents())(scope);
+				};
+				scope.$watch('left', listener);
+				scope.$watch('right', listener);
+			}
+		};
+		return ddo;
+	}])
+
+
 	.directive('lineDiff', ['$compile', 'dmp', function factory($compile, dmp) {
 		var ddo = {
 			scope: {

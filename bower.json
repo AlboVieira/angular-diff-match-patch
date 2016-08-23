@@ -1,7 +1,8 @@
 {
-  "name": "angular-diff-match-patch",
+  "name": "angular-diff-match-with-word",
   "authors": [
-    "Adam Weiss <cseadam@gmail.com>"
+    "Adam Weiss <cseadam@gmail.com>",
+    "Albo Vieira <albovieira@gmail.com>"
   ],
   "license": "MIT",
   "version": "0.4.0",
@@ -18,5 +19,16 @@
   "dependencies": {
     "angular": "^1.*",
     "google-diff-match-patch": "0.1.0"
-  }
+  },
+  "homepage": "https://github.com/AlboVieira/angular-diff-match-patch",
+  "_release": "0.4.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.4.0",
+    "commit": "331464495d491de7a11186ed3f637daa7818a7de"
+  },
+  "_source": "https://github.com/AlboVieira/angular-diff-match-patch",
+  "_target": "^0.4.0",
+  "_originalSource": "angular-diff-match-patch",
+  "_direct": true
 }
